@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="256" height="256">
+  <title>Nonica</title>
+  <circle cx="64" cy="64" r="60" fill="#ede9fe" stroke="#7c3aed" stroke-width="8"/>
+  <circle cx="64" cy="64" r="48" fill="none" stroke="#7c3aed" stroke-width="2" opacity="0.5"/>
+  <g transform="translate(0 -8)"><path d="M64 26 l7 16 17 2 -13 11 4 17 -15 -9 -15 9 4 -17 -13 -11 17 -2z" fill="#111"/></g>
+  <text x="64" y="112" text-anchor="middle" font-family="Georgia, serif" font-size="30" font-weight="bold" fill="#7c3aed">N</text>
+</svg>

@@ -21,6 +21,7 @@ import {SurrenderController} from "./orchestration/surrender-controller";
 import {SurrenderAdapter} from "./adapters/surrender";
 import {MagicWallAdapter} from "./adapters/magic-walls";
 import {HazardAdapter} from "./adapters/hazards";
+import {TestArena} from "./dev/test-arena";
 import {TokenConfigHeader} from "./ui/token-config-header";
 import {ActorSheetHeader} from "./ui/actor-sheet-header";
 import {ArchetypeMenu} from "./ui/archetype-menu";
@@ -68,7 +69,9 @@ Hooks.once("ready", () => {
       openArchetypes: () => new ArchetypeMenu().render({force: true}),
       openActorConfig: (actor: any) => TokenAutomationConfig.openForActor(actor),
       setArchetype: (doc: any, id: string | null) => TokenSettingsAdapter.writeArchetype(doc, id),
-      toggleEnabled: () => Keybindings.toggleEnabled()
+      toggleEnabled: () => Keybindings.toggleEnabled(),
+      /** Baut die Testarena (Szene, Actors, Vorlage, Kampf) in der aktuellen Welt auf oder frischt sie auf. */
+      setupTestArena: (options?: Record<string, unknown>) => TestArena.setup(options as any)
     };
   }
   if (game.system.id !== "dsa5") {

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="256" height="256">
+  <title>Kazrak</title>
+  <circle cx="64" cy="64" r="60" fill="#fee2e2" stroke="#b91c1c" stroke-width="8"/>
+  <circle cx="64" cy="64" r="48" fill="none" stroke="#b91c1c" stroke-width="2" opacity="0.5"/>
+  <g transform="translate(0 -8)"><path d="M42 70 l4 -26 12 12 6 -22 6 22 12 -12 4 26z" fill="#111"/></g>
+  <text x="64" y="112" text-anchor="middle" font-family="Georgia, serif" font-size="30" font-weight="bold" fill="#b91c1c">K</text>
+</svg>

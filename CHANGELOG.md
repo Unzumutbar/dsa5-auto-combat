@@ -1,5 +1,10 @@
 # Changelog
 
+## Unveröffentlicht
+
+- **Testarena**: `api.setupTestArena()` baut eine komplette Testaufstellung mit Spielerhelden, NPC-Archetypen,
+  Gefahrenzone, Kampf und Vorlagen-Szene; neun eigene Token-Bilder unter `icons/tokens/`.
+
 ## 0.4.0 – 2026-09-06
 
 - **Gefahrenzonen**: DSA5-Zauberregionen (Pandämonium, Ignisphaero, Item-Flag „Zone am Boden“) und manuell markierte

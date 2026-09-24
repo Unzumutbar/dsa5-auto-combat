@@ -9,3 +9,8 @@ declare const ChatMessage: any;
 declare const Roll: any;
 declare const PIXI: any;
 declare function fromUuidSync(uuid: string, options?: any): any;
+declare const User: any;
+declare const Actor: any;
+declare const Scene: any;
+declare const Combat: any;
+declare const JournalEntry: any;

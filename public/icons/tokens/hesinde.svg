@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="256" height="256">
+  <title>Schaulustige Hesinde</title>
+  <circle cx="64" cy="64" r="60" fill="#f3f4f6" stroke="#4b5563" stroke-width="8"/>
+  <circle cx="64" cy="64" r="48" fill="none" stroke="#4b5563" stroke-width="2" opacity="0.5"/>
+  <g transform="translate(0 -8)"><path d="M34 64 q30 -30 60 0 q-30 30 -60 0z" fill="none" stroke="#111" stroke-width="5"/><circle cx="64" cy="64" r="9" fill="#111"/></g>
+  <text x="64" y="112" text-anchor="middle" font-family="Georgia, serif" font-size="30" font-weight="bold" fill="#4b5563">H</text>
+</svg>

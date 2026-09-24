@@ -222,6 +222,24 @@ api.toggleEnabled(); api.selfTest();
 
 ## Entwicklung
 
+### Testarena
+
+Das Modul bringt eine Testaufstellung mit: zwei Spielerhelden, ein Leibwächter, fünf feindliche NPC unterschiedlicher
+Archetypen, eine neutrale Zuschauerin, eine Gefahrenzone und ein vorbereiteter Kampf, dazu eine saubere Vorlagen-Kopie der
+Szene. Als Skript-Makro (Spielleiter):
+
+```js
+game.modules.get("dsa5-auto-combat").api.setupTestArena();
+```
+
+Quell-Actors (Standard: Wulfgrimm, Nonica Brigonetti, Lucan und Lucilia Saguaro, Kazrak, Wilmero) und die Basis-Szene
+(Thalas'Var - Lagerhalle) werden per Namen in der Welt gesucht; abweichende Namen lassen sich über
+`setupTestArena({sources: {...}, baseSceneName: "…"})` angeben. Fehlt die Basis-Szene, entsteht eine leere Arena. Jeder
+erzeugte NPC bekommt ein eigenes Token-Bild aus `icons/tokens/`. Der Aufruf ist wiederholbar und frischt vorhandene
+Actors, Tokens und die Vorlage auf. Actors aus englischen Kompendien brauchen deutsche Kampftechnik-Namen, sonst
+scheitert der DSA5-Reaktionsdialog in deutschen Clients.
+
+
 ```bash
 npx --yes pnpm@10 install
 npm run check          # typecheck, test, build, verify:build
