@@ -1,0 +1,20 @@
+{
+  "id": "dsa5-auto-combat",
+  "title": "DSA5 – Auto Combat",
+  "description": "Automatisiert NPC-Züge und NPC-Verteidigung im Kampf für DSA5: Zielwahl, Bewegung, Angriffe, Zauber, Parade/Ausweichen und Schaden – mit Vorschau für den Spielleiter.",
+  "version": "0.4.0",
+  "compatibility": {"minimum": "14", "verified": "14.365"},
+  "authors": [{"name": "nilsb"}],
+  "esmodules": ["dsa5-auto-combat.mjs"],
+  "socket": true,
+  "styles": ["styles/auto-combat.css"],
+  "languages": [
+    {"lang": "de", "name": "Deutsch", "path": "lang/de.json"},
+    {"lang": "en", "name": "English", "path": "lang/en.json"}
+  ],
+  "relationships": {
+    "systems": [
+      {"id": "dsa5", "type": "system", "compatibility": {"minimum": "8.1"}}
+    ]
+  }
+}

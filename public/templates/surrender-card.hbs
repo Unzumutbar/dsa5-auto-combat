@@ -1,0 +1,22 @@
+<div class="dsa5-auto-combat-card dac-surrender dac-state-{{state}}">
+  <header class="dac-header">
+    <i class="fa-solid fa-flag dac-surrender-icon"></i>
+    <div class="dac-title">
+      <strong>{{title}}</strong>
+      <span class="dac-meta"><em>{{stateLabel}}</em></span>
+    </div>
+  </header>
+  <div class="dac-body">
+    <p>{{text}}</p>
+    <p class="dac-explanation">{{hint}}</p>
+  </div>
+  <footer class="dac-buttons">
+    {{#if pending}}
+    <button type="button" data-dac-surrender="accept"><i class="fa-solid fa-check"></i> {{labels.accept}}</button>
+    <button type="button" data-dac-surrender="fightOn"><i class="fa-solid fa-hand-fist"></i> {{labels.fightOn}}</button>
+    {{/if}}
+    {{#if canPost}}
+    <button type="button" data-dac-surrender="post"><i class="fa-solid fa-comment"></i> {{labels.post}}</button>
+    {{/if}}
+  </footer>
+</div>

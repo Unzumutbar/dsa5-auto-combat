@@ -1,0 +1,11 @@
+declare const Hooks: any;
+declare const game: any;
+declare const ui: any;
+declare const canvas: any;
+declare const foundry: any;
+declare const CONFIG: any;
+declare const CONST: any;
+declare const ChatMessage: any;
+declare const Roll: any;
+declare const PIXI: any;
+declare function fromUuidSync(uuid: string, options?: any): any;

@@ -1,0 +1,83 @@
+<div class="dsa5-auto-combat-card dac-state-{{state}}">
+  <header class="dac-header">
+    {{#if tokenImg}}<img class="dac-token" src="{{tokenImg}}" alt="" />{{/if}}
+    <div class="dac-title">
+      <strong>{{name}}</strong>
+      <span class="dac-meta">{{round}} · {{mode}} · <em>{{stateLabel}}</em>{{#if adjusted}} · <em class="dac-adjusted">{{labels.adjusted}}</em>{{/if}}</span>
+    </div>
+  </header>
+  <div class="dac-body">
+    <div class="dac-target"><strong>{{labels.target}}:</strong> {{targetName}}</div>
+    {{#if explanation.length}}
+    <ul class="dac-explanation">
+      {{#each explanation}}<li>{{this}}</li>{{/each}}
+    </ul>
+    {{/if}}
+    {{#if warnings.length}}
+    <ul class="dac-warnings">
+      {{#each warnings}}<li><i class="fa-solid fa-triangle-exclamation"></i> {{this}}</li>{{/each}}
+    </ul>
+    {{/if}}
+    {{#if actions.length}}
+    <div class="dac-section">{{labels.actions}}</div>
+    <ol class="dac-actions">
+      {{#each actions}}<li>{{text}}{{#if odds}} <span class="dac-odds" title="≈">{{odds}}</span>{{/if}}{{#if removable}} <a class="dac-remove" data-dac-remove="{{index}}" title="{{@root.labels.remove}}"><i class="fa-solid fa-xmark"></i></a>{{/if}}</li>{{/each}}
+    </ol>
+    {{/if}}
+    {{#if adjust}}
+    <details class="dac-adjust" {{#if adjusted}}open{{/if}}>
+      <summary>{{labels.adjust}}</summary>
+      <div class="dac-adjust-grid">
+        <label>{{labels.target}}
+          <select data-dac-adjust="targetTokenId">
+            {{#each adjust.targets}}<option value="{{id}}" {{#if selected}}selected{{/if}}>{{name}}</option>{{/each}}
+          </select>
+        </label>
+        <label>{{labels.weapon}}
+          <select data-dac-adjust="weaponId">
+            <option value="">{{labels.auto}}</option>
+            {{#each adjust.weapons}}<option value="{{id}}" {{#if selected}}selected{{/if}}>{{name}}</option>{{/each}}
+          </select>
+        </label>
+        {{#if adjust.hasSpells}}
+        <label>{{labels.spell}}
+          <select data-dac-adjust="spellId">
+            <option value="">{{labels.auto}}</option>
+            <option value="-" {{#if adjust.noSpell}}selected{{/if}}>{{labels.noSpell}}</option>
+            {{#each adjust.spells}}<option value="{{id}}" {{#if selected}}selected{{/if}}>{{name}}</option>{{/each}}
+          </select>
+        </label>
+        {{/if}}
+        <label class="dac-check"><input type="checkbox" data-dac-adjust="noMove" {{#if adjust.noMove}}checked{{/if}}> {{labels.noMove}}</label>
+        {{#if adjust.commands}}
+        <label>{{labels.command}}
+          <select data-dac-command>
+            {{#each adjust.commands.options}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}
+          </select>
+        </label>
+        {{/if}}
+        <button type="button" data-dac-action="resetPlan" {{#unless adjusted}}disabled{{/unless}}><i class="fa-solid fa-rotate-left"></i> {{labels.reset}}</button>
+      </div>
+    </details>
+    {{/if}}
+    {{#if results.length}}
+    <div class="dac-section">{{labels.results}}</div>
+    <ol class="dac-results">
+      {{#each results}}<li class="dac-result-{{status}}">{{text}} <span class="dac-result-status">– {{statusLabel}}</span></li>{{/each}}
+    </ol>
+    {{/if}}
+  </div>
+  <footer class="dac-buttons">
+    {{#if pending}}
+    <button type="button" data-dac-action="execute"><i class="fa-solid fa-play"></i> {{labels.execute}}</button>
+    {{#if canCycle}}<button type="button" data-dac-action="cycleTarget"><i class="fa-solid fa-crosshairs"></i> {{labels.cycleTarget}}</button>{{/if}}
+    <button type="button" data-dac-action="skip"><i class="fa-solid fa-forward"></i> {{labels.skip}}</button>
+    {{/if}}
+    {{#if showOverlayToggle}}
+    <button type="button" data-dac-action="toggleOverlay" class="dac-overlay-toggle"><i class="fa-solid fa-route"></i> {{labels.toggleOverlay}}</button>
+    {{/if}}
+    {{#if showEndTurn}}
+    <button type="button" data-dac-action="endTurn"><i class="fa-solid fa-flag-checkered"></i> {{labels.endTurn}}</button>
+    {{/if}}
+  </footer>
+</div>

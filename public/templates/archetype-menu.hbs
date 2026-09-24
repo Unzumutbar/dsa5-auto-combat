@@ -1,0 +1,83 @@
+<div class="dac-config-body dac-archetype-layout">
+  <aside class="dac-archetype-list">
+    <div class="dac-archetype-toolbar">
+      <button type="button" data-action="create" data-tooltip="{{localize 'DSAAUTOCOMBAT.ArchetypeMenu.New'}}"><i class="fa-solid fa-plus"></i></button>
+      <button type="button" data-action="duplicate" data-tooltip="{{localize 'DSAAUTOCOMBAT.ArchetypeMenu.Duplicate'}}"><i class="fa-solid fa-copy"></i></button>
+      <button type="button" data-action="remove" data-tooltip="{{localize 'DSAAUTOCOMBAT.ArchetypeMenu.Delete'}}" {{#unless selected.canDelete}}disabled{{/unless}}><i class="fa-solid fa-trash"></i></button>
+      {{#if hiddenBuiltIns}}<button type="button" data-action="restore" data-tooltip="{{localize 'DSAAUTOCOMBAT.ArchetypeMenu.Restore'}}"><i class="fa-solid fa-rotate-left"></i></button>{{/if}}
+    </div>
+    <ul>
+      {{#each archetypes}}
+      <li class="{{#if active}}active{{/if}}">
+        <button type="button" data-action="select" data-id="{{id}}"><i class="{{icon}}"></i> {{name}}{{#if builtIn}} <span class="dac-badge">{{localize "DSAAUTOCOMBAT.ArchetypeMenu.BuiltIn"}}</span>{{/if}}</button>
+      </li>
+      {{/each}}
+    </ul>
+  </aside>
+
+  <section class="dac-archetype-editor">
+    <p class="hint">{{localize "DSAAUTOCOMBAT.ArchetypeMenu.Hint"}}</p>
+    <div class="form-group">
+      <label>{{localize "DSAAUTOCOMBAT.ArchetypeMenu.Name"}}</label>
+      <div class="form-fields">
+        {{#if selected.builtIn}}<strong>{{selected.name}}</strong>{{else}}<input type="text" name="name" value="{{selected.rawName}}" />{{/if}}
+      </div>
+    </div>
+    <div class="form-group">
+      <label>{{localize "DSAAUTOCOMBAT.ArchetypeMenu.Description"}}</label>
+      <div class="form-fields"><input type="text" name="description" value="{{selected.description}}" /></div>
+    </div>
+    <div class="form-group">
+      <label>{{localize "DSAAUTOCOMBAT.ArchetypeMenu.Icon"}}</label>
+      <div class="form-fields"><input type="text" name="icon" value="{{selected.icon}}" placeholder="fa-solid fa-user" /></div>
+    </div>
+    <div class="form-group">
+      <label>{{level.label}}</label>
+      <div class="form-fields">
+        <select name="field.level">
+          {{#each level.options}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}
+        </select>
+      </div>
+    </div>
+
+    <div class="dac-columns dac-archetype-fields">
+      {{#> dacFieldColumn title=(localize "DSAAUTOCOMBAT.Config.Tabs.combat") fields=combat}}{{/dacFieldColumn}}
+      {{#> dacFieldColumn title=(localize "DSAAUTOCOMBAT.Config.Tabs.magic") fields=magic}}{{/dacFieldColumn}}
+      {{#> dacFieldColumn title=(localize "DSAAUTOCOMBAT.Config.Tabs.morale") fields=morale}}{{/dacFieldColumn}}
+    </div>
+
+    <fieldset class="dac-disposition-map">
+      <legend>{{localize "DSAAUTOCOMBAT.ArchetypeMenu.DispositionDefaults"}}</legend>
+      {{#each dispositions}}
+      <div class="form-group">
+        <label>{{label}}</label>
+        <div class="form-fields">
+          <select name="disposition.{{key}}">
+            {{#each options}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}
+          </select>
+        </div>
+      </div>
+      {{/each}}
+    </fieldset>
+  </section>
+</div>
+
+{{#*inline "dacFieldColumn"}}
+<fieldset class="dac-column">
+  <legend>{{title}}</legend>
+  {{#each fields}}
+  <div class="form-group dac-field">
+    <label>{{label}}</label>
+    <div class="form-fields">
+      {{#if isSelect}}
+      <select name="field.{{key}}">
+        {{#each options}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}
+      </select>
+      {{else}}
+      <input type="number" name="field.{{key}}" min="{{min}}" max="{{max}}" step="1" value="{{value}}" placeholder="{{localize 'DSAAUTOCOMBAT.Config.Default'}}" />
+      {{/if}}
+    </div>
+  </div>
+  {{/each}}
+</fieldset>
+{{/inline}}

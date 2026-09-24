@@ -1,0 +1,85 @@
+<div class="dac-config-body">
+  <header class="dac-config-head">
+    <div class="form-group">
+      <label>{{localize "DSAAUTOCOMBAT.Disposition.Label"}}</label>
+      <div class="form-fields"><strong>{{disposition}}</strong></div>
+    </div>
+    <div class="form-group">
+      <label>{{localize "DSAAUTOCOMBAT.Config.Archetype"}}</label>
+      <div class="form-fields">
+        <select name="archetype">
+          {{#each archetypeOptions}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}
+        </select>
+      </div>
+      <p class="hint dac-archetype-description">{{archetypeDescription}}</p>
+    </div>
+    <div class="form-group">
+      <label data-tooltip="{{level.tooltip}}">{{level.label}}</label>
+      <div class="form-fields">
+        <select name="level">
+          {{#each level.options}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <nav class="sheet-tabs tabs" data-group="primary">
+    {{#each tabs}}
+    <a class="{{this.cssClass}}" data-action="tab" data-group="{{this.group}}" data-tab="{{this.id}}">
+      <i class="{{this.icon}}"></i> {{localize this.label}}
+    </a>
+    {{/each}}
+  </nav>
+
+  {{#> dacFieldTab tab=tabs.combat fields=combat}}{{/dacFieldTab}}
+  {{#> dacFieldTab tab=tabs.magic fields=magic}}{{/dacFieldTab}}
+  {{#> dacFieldTab tab=tabs.morale fields=morale}}{{/dacFieldTab}}
+
+  {{#if isToken}}
+  <footer class="dac-config-foot">
+    <div class="form-group">
+      <label data-tooltip="{{localize 'DSAAUTOCOMBAT.Config.ProtegeHint'}}">{{localize "DSAAUTOCOMBAT.Config.Protege"}}</label>
+      <div class="form-fields">
+        <select name="protegeTokenId">
+          {{#each protegeOptions}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>{{localize "DSAAUTOCOMBAT.Config.Grudges"}}</label>
+      <div class="form-fields">
+        {{#if hasGrudges}}
+          <span>{{#each grudges}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}</span>
+          <button type="button" data-action="clearGrudges"><i class="fa-solid fa-eraser"></i> {{localize "DSAAUTOCOMBAT.Config.ClearGrudges"}}</button>
+        {{else}}
+          <span>{{localize "DSAAUTOCOMBAT.Config.NoGrudges"}}</span>
+        {{/if}}
+      </div>
+    </div>
+    <div class="form-group">
+      <label>{{localize "DSAAUTOCOMBAT.Config.SaveToActor"}}</label>
+      <div class="form-fields"><input type="checkbox" name="saveToActor" /></div>
+    </div>
+  </footer>
+  {{/if}}
+</div>
+
+{{#*inline "dacFieldTab"}}
+<section class="tab dac-tab {{tab.cssClass}}" data-tab="{{tab.id}}" data-group="{{tab.group}}">
+  {{#each fields}}
+  <div class="form-group dac-field">
+    <label data-tooltip="{{tooltip}}">{{label}}</label>
+    <div class="form-fields">
+      {{#if isSelect}}
+      <select name="{{key}}">
+        {{#each options}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}
+      </select>
+      {{else}}
+      <input type="number" name="{{key}}" min="{{min}}" max="{{max}}" step="1" value="{{value}}" placeholder="{{effective}}" />
+      {{/if}}
+    </div>
+    {{#if hint}}<p class="hint">{{hint}}</p>{{/if}}
+  </div>
+  {{/each}}
+</section>
+{{/inline}}

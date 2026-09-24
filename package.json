@@ -1,0 +1,24 @@
+{
+  "name": "dsa5-auto-combat",
+  "version": "0.4.0",
+  "private": true,
+  "type": "module",
+  "description": "Automatisiert NPC-Aktionen im Kampf für das Foundry-VTT-System DSA5.",
+  "scripts": {
+    "build": "vite build",
+    "verify:build": "node scripts/verify-build.mjs",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.rules.json",
+    "check": "npm run typecheck && npm run test && npm run build && npm run verify:build",
+    "link:foundry": "node scripts/link-foundry.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^26.4.1",
+    "typescript": "^5.9.3",
+    "vite": "^7.1.7",
+    "vitest": "^3.2.4"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

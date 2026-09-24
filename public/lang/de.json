@@ -1,0 +1,575 @@
+{
+  "DSAAUTOCOMBAT": {
+    "Title": "Auto Combat",
+    "Ready": "Bereit ({system} {version})",
+    "SelfTest": {
+      "Ok": "Selbsttest bestanden: alle benötigten DSA5- und Foundry-Funktionen gefunden.",
+      "Missing": "Selbsttest: folgende Funktionen fehlen oder haben sich geändert: {missing}. Die Automatisierung kann unvollständig arbeiten."
+    },
+    "Settings": {
+      "enabled": {
+        "Name": "Automatisierung aktiv",
+        "Hint": "Schaltet die gesamte NPC-Automatisierung ein oder aus."
+      },
+      "damageApplication": {
+        "Name": "Schaden automatisch anwenden",
+        "Hint": "Wendet den Schaden aus vergleichenden Proben automatisch auf den Verteidiger an.",
+        "npcOnly": "Nur bei NPC",
+        "everyone": "Bei allen (auch Spielercharakteren)",
+        "never": "Nie"
+      },
+      "advanceTurn": {
+        "Name": "Zug nach Ausführung beenden",
+        "Hint": "Schaltet nach einem ausgeführten NPC-Zug automatisch zum nächsten Kombattanten weiter.",
+        "never": "Nie",
+        "autoOnly": "Nur bei vollautomatischen Tokens",
+        "always": "Immer"
+      },
+      "autoInitiative": {
+        "Name": "Initiative automatisch würfeln",
+        "Hint": "Würfelt fehlende Initiative der spielleitergesteuerten Kombattanten bei Kampfstart und beim Hinzufügen."
+      },
+      "defaultSpellRangeSteps": {
+        "Name": "Zauber-Reichweite (Fallback in Schritt)",
+        "Hint": "Wird verwendet, wenn die Reichweite eines Zaubers nicht ausgewertet werden kann."
+      },
+      "deadTokensBlock": {
+        "Name": "Besiegte Tokens blockieren Bewegung",
+        "Hint": "Wenn aktiv, gelten Felder mit besiegten Tokens bei der Wegfindung als belegt."
+      },
+      "debug": {
+        "Name": "Debug-Ausgaben",
+        "Hint": "Schreibt ausführliche Planungsdetails in die Browser-Konsole."
+      },
+      "focusLimit": {
+        "Name": "Fokus-Begrenzung (Angreifer pro Ziel)",
+        "Hint": "Höchstens so viele automatisierte NPC greifen dasselbe Ziel an, sofern andere Ziele erreichbar sind."
+      },
+      "archetypeMenu": {
+        "Name": "Archetypen",
+        "Label": "Archetypen verwalten",
+        "Hint": "Verhaltensvorlagen anlegen, bearbeiten und Gesinnungen zuordnen. Token- und Actor-Einstellungen haben Vorrang."
+      },
+      "showPathPreview": {
+        "Name": "Wegvorschau auf der Karte",
+        "Hint": "Zeichnet den geplanten Weg, das Ziel und Passierschlag-Gefahren auf die Szene, solange die Zugvorschau offen ist."
+      },
+      "showOdds": {
+        "Name": "Erfolgsaussicht anzeigen",
+        "Hint": "Zeigt in der Zugvorschau je Angriff die geschätzte Trefferchance und den erwarteten Schaden, je Zauber die Gelingenswahrscheinlichkeit."
+      },
+      "skipSurrendered": {
+        "Name": "Ergebene überspringen",
+        "Hint": "Ergebene NPC verlieren ihren Zug automatisch, solange noch jemand kämpft."
+      },
+      "surrenderText": {
+        "Name": "Text bei Aufgabe",
+        "Hint": "Öffentlicher Chat-Text für „Text posten“; {name} wird ersetzt."
+      }
+    },
+    "Level": {
+      "default": "Standard (nach Gesinnung)",
+      "off": "Aus",
+      "preview": "Vorschau",
+      "auto": "Vollautomatisch"
+    },
+    "Profile": {
+      "aggressive": "Aggressiv",
+      "balanced": "Ausgewogen",
+      "defensive": "Defensiv",
+      "support": "Unterstützend",
+      "passive": "Passiv",
+      "default": "Standard (nach Gesinnung)"
+    },
+    "TargetRule": {
+      "nearest": "Nächstes Ziel",
+      "weakest": "Schwächstes Ziel",
+      "highestThreat": "Größte Bedrohung",
+      "random": "Zufällig",
+      "default": "Standard"
+    },
+    "Disposition": {
+      "hostile": "Feindlich",
+      "neutral": "Neutral",
+      "friendly": "Freundlich",
+      "secret": "Geheimnisvoll",
+      "Label": "Gesinnung"
+    },
+    "Spell": {
+      "Role": {
+        "damage": "Schaden",
+        "heal": "Heilung",
+        "buff": "Stärkung",
+        "debuff": "Schwächung",
+        "control": "Kontrolle",
+        "auto": "Automatisch erkennen",
+        "never": "Nie einsetzen"
+      },
+      "Sheet": {
+        "Label": "Auto Combat – Rolle im Kampf",
+        "Hazard": "Auto Combat – Zone am Boden",
+        "Wall": "Auto Combat – Zauberwand"
+      }
+    },
+    "Explain": {
+      "Target": {
+        "chosen": "Ziel: {name} ({distance} Schritt)",
+        "nearest": "nächstes erreichbares Ziel",
+        "weakest": "schwächstes Ziel",
+        "threat": "größte Bedrohung",
+        "random": "zufällig gewählt",
+        "sticky": "bisheriges Ziel beibehalten",
+        "forced": "manuell gewählt",
+        "noLos": "keine Sichtlinie",
+        "downed": "Ziel ist bereits kampfunfähig",
+        "crowded": "bereits von genug Verbündeten angegriffen",
+        "protege": "bedroht den Schützling",
+        "leader": "Ziel des Anführers"
+      },
+      "Skip": {
+        "defeated": "Besiegt – handelt nicht.",
+        "condition": "Zustand „{condition}“ – handelt nicht.",
+        "surrendered": "Hat sich ergeben – handelt nicht."
+      },
+      "Warn": {
+        "pain": "Schmerz Stufe {level}",
+        "provokes": "Provoziert Passierschlag von {names}"
+      },
+      "Passive": "Passiv ({disposition}) – verteidigt sich nur.",
+      "Flee": {
+        "threshold": "Flieht: {lep} % LeP (Schwelle {threshold} %)",
+        "move": "Flieht {distance} Schritt vom nächsten Gegner weg",
+        "cannotMove": "kann nicht fliehen (bewegungsunfähig)",
+        "cornered": "in die Enge getrieben – kein Fluchtweg",
+        "groupLeader": "Gruppenmoral gebrochen: {name} ist gefallen",
+        "groupLosses": "Gruppenmoral gebrochen: {down} von {total} kampfunfähig"
+      },
+      "Wait": {
+        "passive": "wartet ab",
+        "noEnemies": "keine Gegner in Sicht",
+        "noActions": "keine Aktionen mehr",
+        "noWeapon": "keine Nahkampfwaffe",
+        "notInReach": "Ziel nicht in Reichweite ({distance} Schritt)",
+        "approaching": "nähert sich dem Ziel ({distance} Schritt)",
+        "noPath": "kein Weg zum Ziel ({distance} Schritt)",
+        "noAmmo": "keine Munition",
+        "holdPosition": "hält Position ({distance} Schritt bis zum Ziel)",
+        "noRetreat": "bleibt im Nahkampf ({distance} Schritt bis zum Ziel)",
+        "guarding": "bleibt bei Schützling {name}",
+        "removed": "Aktion vom SL entfernt"
+      },
+      "Budget": "{actions} Aktion(en) verfügbar",
+      "Move": {
+        "free": "Bewegung {distance} Schritt (freie Aktion)",
+        "run": "Laufen {distance} Schritt (kostet eine Aktion)",
+        "encircle": "Umgeht das Ziel – Verbündete stehen bereits auf der anderen Seite",
+        "block": "Stellt sich dem Ziel in den Fluchtweg"
+      },
+      "Ranged": {
+        "shoot": "Fernkampf mit {weapon} ({band})",
+        "reload": "{weapon} nachladen ({progress}/{loadTime})",
+        "position": "Bewegt sich in Schussposition",
+        "retreat": "Weicht aus dem Nahkampf zurück",
+        "noAmmo": "Keine Munition mehr"
+      },
+      "Spell": {
+        "damage": "Zaubert {spell} auf {target}",
+        "heal": "Heilt {target} mit {spell}",
+        "buff": "Wirkt {spell} auf {target}",
+        "debuff": "Schwächt {target} mit {spell}",
+        "control": "Kontrolliert {target} mit {spell}",
+        "unknownRange": "Reichweite von {spell} unbekannt – angenommen: {units} Schritt",
+        "prepare": "Bereitet {spell} vor ({progress}/{needed} Aktionen Zauberdauer)",
+        "continue": "Führt den vorbereiteten Zauber {spell} zu Ende",
+        "aborted": "Bricht {spell} ab: {reason}",
+        "AbortReason": {
+          "lost": "Zauber nicht mehr verfügbar",
+          "pain": "Schmerz gestiegen",
+          "target": "Ziel nicht mehr verfügbar",
+          "range": "Ziel außer Reichweite"
+        }
+      },
+      "Maneuver": "Manöver {name} Stufe {step} ({at} AT) – höherer erwarteter Schaden",
+      "Constraint": {
+        "weapon": "SL-Vorgabe: Waffe {weapon}",
+        "spell": "SL-Vorgabe: Zauber {spell}",
+        "noSpell": "SL-Vorgabe: kein Zauber",
+        "noMove": "SL-Vorgabe: keine Bewegung",
+        "unmet": "Eine SL-Vorgabe konnte nicht umgesetzt werden (Waffe/Zauber nicht einsetzbar)"
+      },
+      "Switch": {
+        "action": "Waffenwechsel zu {weapon} kostet eine Aktion",
+        "free": "Waffenwechsel zu {weapon} (Schnellziehen, keine Aktion)"
+      },
+      "Hazard": {
+        "leave": "Verlässt zuerst die Gefahrenzone {zones} ({distance} Schritt)",
+        "trapped": "Steht in {zones}, findet aber keinen sicheren Ausweg",
+        "path": "Weg führt durch {zones}"
+      },
+      "Surrender": {
+        "decision": "Gibt auf: {lep} % LeP (Schwelle {threshold} %)",
+        "escapeBlocked": "kein Fluchtweg frei",
+        "outnumbered": "Gegner in Überzahl",
+        "leaderFallen": "Anführer gefallen"
+      }
+    },
+    "Action": {
+      "move": "Bewegung {distance} Schritt ({reason})",
+      "meleeAttack": "Nahkampfangriff mit {weapon} auf {target}",
+      "rangedAttack": "Fernkampfangriff mit {weapon} auf {target} ({band})",
+      "reload": "{weapon} nachladen",
+      "castSpell": "{spell} ({role}, {cost} Punkte) auf {target}",
+      "continueSpell": "{spell} vorbereiten ({role}) auf {target}",
+      "wait": "Wartet: {reason}",
+      "Self": "sich selbst",
+      "Band": {
+        "0": "nah",
+        "1": "mittel",
+        "2": "weit"
+      },
+      "Reason": {
+        "approach": "Annäherung",
+        "flee": "Flucht",
+        "keepDistance": "Abstand halten",
+        "leaveHazard": "verlässt Gefahrenzone"
+      },
+      "meleeAttackManeuver": "Nahkampfangriff mit {weapon} auf {target} – {maneuver}",
+      "switchWeapon": "Zieht {weapon} ({cost})",
+      "SwitchCost": {
+        "action": "1 Aktion",
+        "free": "frei, Schnellziehen"
+      },
+      "surrender": "Ergibt sich ({reason})"
+    },
+    "Card": {
+      "Round": "Runde {round}",
+      "Target": "Ziel",
+      "NoTarget": "kein Ziel",
+      "Actions": "Geplante Aktionen",
+      "Results": "Ergebnis",
+      "Execute": "Ausführen",
+      "CycleTarget": "Anderes Ziel",
+      "Skip": "Überspringen",
+      "EndTurn": "Zug beenden",
+      "Mode": {
+        "fight": "Kampf",
+        "flee": "Flucht",
+        "passive": "Passiv",
+        "skip": "Überspringen",
+        "surrender": "Aufgabe"
+      },
+      "State": {
+        "pending": "wartet auf Bestätigung",
+        "executing": "wird ausgeführt …",
+        "done": "ausgeführt",
+        "skipped": "übersprungen",
+        "stale": "Zug ist vorbei",
+        "failed": "fehlgeschlagen"
+      },
+      "ToggleOverlay": "Weg zeigen/verbergen",
+      "Adjust": {
+        "Title": "Plan anpassen",
+        "Adjusted": "angepasst",
+        "Weapon": "Waffe",
+        "Spell": "Zauber",
+        "Auto": "automatisch",
+        "NoSpell": "kein Zauber",
+        "NoMove": "keine Bewegung",
+        "Reset": "Zurücksetzen",
+        "Remove": "Aktion entfernen",
+        "Stowed": "verstaut"
+      }
+    },
+    "Result": {
+      "ok": "erledigt",
+      "skipped": "übersprungen",
+      "failed": "fehlgeschlagen: {error}",
+      "notImplemented": "in dieser Version noch nicht ausführbar",
+      "error": "Fehler",
+      "Reason": {
+        "noActor": "kein Actor",
+        "noWeapon": "Waffe nicht gefunden",
+        "noAmmo": "keine Munition",
+        "rollFailed": "Wurf nicht möglich",
+        "targetGone": "Ziel nicht mehr vorhanden",
+        "targetDown": "Ziel bereits besiegt",
+        "targetNotAdjacent": "Ziel nicht (mehr) angrenzend",
+        "moveBlocked": "Bewegung blockiert",
+        "noSpell": "Zauber nicht gefunden"
+      }
+    },
+    "Warn": {
+      "stale": "Dieser Zugvorschlag gehört zu einem vergangenen Zug.",
+      "busy": "Es läuft bereits eine Ausführung.",
+      "noNpcTurn": "Der aktuelle Kombattant ist kein automatisierbarer NPC.",
+      "noCandidates": "Keine weiteren Ziele verfügbar. Markiere ein Token als Ziel, um es zu erzwingen."
+    },
+    "Hud": {
+      "Open": "Auto Combat: Einstellungen (Rechtsklick: Stufe wechseln)",
+      "Badge": {
+        "off": "AUS",
+        "preview": "VOR",
+        "auto": "AUTO"
+      }
+    },
+    "Tracker": {
+      "Plan": "Zug planen (Auto Combat)"
+    },
+    "Config": {
+      "Title": "Auto Combat – {name}",
+      "Open": "Auto Combat",
+      "Level": "Automatisierung",
+      "Profile": "Verhaltensprofil",
+      "TargetRule": "Zielwahl",
+      "UseSpells": "Zauber/Liturgien einsetzen",
+      "UseRanged": "Fernkampf einsetzen",
+      "KeepDistance": "Fernkämpfer hält Abstand",
+      "AllowRunning": "Laufen erlaubt (Bewegung über GS kostet eine Aktion)",
+      "FightWhileIncapacitated": "Trotz Handlungsunfähigkeit handeln",
+      "DeclineHopelessDefense": "Hoffnungslose Verteidigungen auslassen",
+      "DodgeOnlyVsRanged": "Gegen Fernkampf nur ausweichen",
+      "FleeThreshold": "Flieht unter LeP-Anteil (%)",
+      "FleeThresholdHint": "0 = nie",
+      "AutoAdvanceTurn": "Zug nach Ausführung beenden",
+      "AutoAdvance": {
+        "default": "Wie Welteinstellung",
+        "yes": "Ja",
+        "no": "Nein"
+      },
+      "Effective": "wirksam: {value} ({source})",
+      "Source": {
+        "base": "Standard",
+        "disposition": "Gesinnung",
+        "actor": "Actor",
+        "token": "Token",
+        "archetype": "Archetyp"
+      },
+      "Grudges": "Persönliche Feinde",
+      "NoGrudges": "keine",
+      "ClearGrudges": "Feinde vergessen",
+      "SaveToActor": "Auch als Standard für den Actor speichern",
+      "Save": "Speichern",
+      "Default": "Standard",
+      "Yes": "Ja",
+      "No": "Nein",
+      "Tabs": {
+        "combat": "Kampf",
+        "magic": "Zauber & Fernkampf",
+        "morale": "Moral & Sonstiges"
+      },
+      "Archetype": "Archetyp",
+      "ArchetypeDefault": "Standard der Gesinnung ({name})",
+      "ArchetypeFromActor": "Vom Actor ({name})",
+      "DefaultWith": "Standard ({value})",
+      "WorldDefault": "Welteinstellung",
+      "AttackDowned": "Kampfunfähige Ziele angreifen",
+      "HealThresholdPct": "Heilt Verbündete unter LeP-Anteil (%)",
+      "PreferSpells": "Zauber-Präferenz",
+      "HoldPosition": "Position halten",
+      "AllowRetreat": "Darf den Nahkampf verlassen",
+      "UseManeuvers": "Kampfmanöver einsetzen",
+      "IsLeader": "Anführer der Gruppe",
+      "ImmuneToGroupMorale": "Immun gegen Gruppenmoral",
+      "FocusLimit": "Fokus-Begrenzung (Angreifer pro Ziel)",
+      "Protege": "Schützling",
+      "ProtegeHint": "Der Token bleibt bei diesem Schützling und greift dessen Angreifer an.",
+      "ProtegeNone": "kein Schützling",
+      "FleeThresholdPct": "Flieht unter LeP-Anteil (%)",
+      "HazardCaution": "Gefahrenzonen",
+      "SurrenderThresholdPct": "Aufgabe-Schwelle (LeP %)",
+      "SurrenderThresholdHint": "0 = gibt nie auf. Aufgabe statt Flucht, wenn kein Fluchtweg frei ist, die Gegner in Überzahl sind oder der Anführer gefallen ist.",
+      "SurrenderWhenOutnumbered": "Ergibt sich bei Überzahl (2:1)",
+      "BlockEscape": "Fluchtwege blockieren",
+      "FollowLeader": "Folgt dem Anführer (Gruppenziel)"
+    },
+    "Defense": {
+      "Parry": "Parade",
+      "Dodge": "Ausweichen",
+      "None": {
+        "cannotDefend": "Keine Verteidigung möglich (Zustand)",
+        "hopeless": "Verzichtet auf aussichtslose Verteidigung",
+        "noOption": "Keine Verteidigungsoption",
+        "rollFailed": "Verteidigungswurf nicht möglich"
+      }
+    },
+    "Archetype": {
+      "Migrated": "Migriert: {disposition}",
+      "standard": {
+        "name": "Standard",
+        "description": "Ausgewogenes Verhalten ohne Besonderheiten."
+      },
+      "killer": {
+        "name": "Mörderischer Nahkämpfer",
+        "description": "Greift auch Kampfunfähige an, flieht nie, ignoriert die Fokus-Begrenzung und weicht nicht zurück."
+      },
+      "coward": {
+        "name": "Feiger Ganove",
+        "description": "Sucht sich das schwächste Ziel, flieht bei halben Lebenspunkten und ergibt sich, wenn keine Flucht möglich ist oder die Gegner in Überzahl sind."
+      },
+      "archer": {
+        "name": "Schütze",
+        "description": "Bevorzugt Fernkampf, hält Abstand und zieht sich aus dem Nahkampf zurück."
+      },
+      "beast": {
+        "name": "Bestie",
+        "description": "Aggressiv, ohne Zauber, läuft dem Ziel auch mit Aktionseinsatz hinterher."
+      },
+      "battlemage": {
+        "name": "Kampfmagier",
+        "description": "Setzt Schadenszauber vor Waffen ein und hält Abstand."
+      },
+      "supportmage": {
+        "name": "Buff-/Heilmagier",
+        "description": "Heilt Verbündete früh (ab 60 % LeP), stärkt und kontrolliert statt zu schaden."
+      },
+      "controller": {
+        "name": "Kontrollmagier",
+        "description": "Setzt Kontroll- und Schwächungszauber vor Schaden ein."
+      },
+      "guard": {
+        "name": "Wächter",
+        "description": "Hält seine Position und greift nur an, was in Reichweite kommt."
+      },
+      "bodyguard": {
+        "name": "Leibwächter",
+        "description": "Bleibt bei seinem Schützling und greift dessen Angreifer an (Schützling im Token einstellen)."
+      },
+      "leader": {
+        "name": "Anführer",
+        "description": "Fällt er, bricht die Moral seiner Gruppe."
+      }
+    },
+    "Opportunity": {
+      "Title": "Passierschlag",
+      "Text": "{target} verlässt den Nahkampfbereich von {attacker}. {attacker} darf einen Passierschlag mit {weapon} ausführen.",
+      "Rule": "Ein Passierschlag kostet keine Handlung, erhält −4 auf den Angriff und kann nicht abgewehrt werden.",
+      "Execute": "Passierschlag ausführen",
+      "Decline": "Verzichten",
+      "NotOwner": "Nur der Besitzer des Angreifers oder der Spielleiter kann diesen Passierschlag ausführen.",
+      "Result": "Passierschlag gewürfelt (Erfolgsgrad {sl}).",
+      "State": {
+        "pending": "offen",
+        "done": "ausgeführt",
+        "declined": "verzichtet",
+        "stale": "verfallen"
+      }
+    },
+    "SpellPreference": {
+      "auto": "Automatisch (nach Profil)",
+      "damageFirst": "Schadenszauber zuerst",
+      "controlFirst": "Kontrolle/Schwächung zuerst",
+      "weaponsFirst": "Waffen zuerst (Zauber nur Heilung/Stärkung)"
+    },
+    "ArchetypeMenu": {
+      "Title": "Auto Combat – Archetypen",
+      "Hint": "Ein Archetyp bündelt Verhaltenswerte. „Standard“ übernimmt den eingebauten Wert. Änderungen wirken auf alle Tokens mit diesem Archetyp; Token und Actor können einzelne Werte überschreiben.",
+      "New": "Neuer Archetyp",
+      "NewName": "Neuer Archetyp",
+      "Copy": "Kopie",
+      "Duplicate": "Duplizieren",
+      "Delete": "Löschen",
+      "Restore": "Eingebaute Archetypen wiederherstellen",
+      "ConfirmDelete": "Archetyp „{name}“ wirklich löschen? Tokens mit diesem Archetyp fallen auf den Standard ihrer Gesinnung zurück.",
+      "Name": "Name",
+      "Description": "Beschreibung",
+      "Icon": "Symbol (Font-Awesome-Klasse)",
+      "BuiltIn": "eingebaut",
+      "DispositionDefaults": "Standard-Archetyp je Gesinnung",
+      "Saved": "Archetypen gespeichert."
+    },
+    "Keys": {
+      "planTurn": "Zug planen",
+      "planTurnHint": "Erzeugt eine Auto-Combat-Vorschau für den aktuellen Kombattanten.",
+      "executePreview": "Vorschau ausführen",
+      "executePreviewHint": "Führt die offene Zugvorschau des aktuellen Kampfes aus.",
+      "toggleEnabled": "Auto Combat ein/aus",
+      "toggleEnabledHint": "Schaltet die gesamte Automatisierung um (Notaus).",
+      "noPending": "Keine offene Zugvorschau."
+    },
+    "Controls": {
+      "Toggle": "Auto Combat aktiv (Notaus)"
+    },
+    "Notify": {
+      "enabled": "Auto Combat ist aktiv.",
+      "disabled": "Auto Combat ist ausgeschaltet."
+    },
+    "Overlay": {
+      "moveFree": "{distance} {units} (frei)",
+      "moveRun": "{distance} {units} (Aktion)",
+      "provokes": "Passierschlag!"
+    },
+    "Odds": {
+      "attack": "≈ {hit} % Treffer · ≈ {damage} TP",
+      "spell": "≈ {chance} % Gelingen"
+    },
+    "HazardCaution": {
+      "ignore": "Ignorieren (läuft hindurch)",
+      "avoid": "Meiden (Umweg, wenn möglich)",
+      "never": "Nie betreten"
+    },
+    "Hazard": {
+      "Mark": "Gefahrenzone",
+      "Title": "Gefahrenzone: {name}",
+      "SeverityLabel": "Stufe",
+      "SeverityHint": "Meiden: NPC laufen außen herum, wenn das Budget reicht. Verboten: wirkt wie eine Wand.",
+      "DamageLabel": "Schaden pro Runde (Hinweis)",
+      "Save": "Speichern",
+      "Marked": "{name}: {severity}",
+      "Template": "Messvorlage",
+      "Severity": {
+        "auto": "Automatisch (Wissensbasis)",
+        "none": "Keine Gefahr",
+        "avoid": "Meiden",
+        "forbidden": "Verboten"
+      }
+    },
+    "MagicWall": {
+      "Draw": "Zauberwand ziehen",
+      "Placed": "Zauberwand gezogen",
+      "Busy": "Es wird bereits eine Zauberwand gezogen.",
+      "DrawHint": "{spell}: Anfang und Ende der Wand auf der Karte anklicken (Rechtsklick oder Esc bricht ab).",
+      "Created": "Zauberwand {spell} erstellt – Dauer: {duration}",
+      "Maintained": "aufrechterhaltend / unbegrenzt",
+      "Rounds": "{rounds} KR",
+      "Expired": "Zauberwand abgelaufen: {walls}",
+      "ListTitle": "Zauberwände",
+      "None": "Keine Zauberwände auf dieser Szene.",
+      "Spell": "Zauber",
+      "Caster": "Zauberer",
+      "Left": "Restdauer",
+      "Close": "Schließen",
+      "Kind": {
+        "auto": "Automatisch (Wissensbasis)",
+        "none": "Keine Wand",
+        "invisible": "Undurchdringlich, durchsichtig",
+        "opaque": "Undurchdringlich, blickdicht"
+      }
+    },
+    "Surrender": {
+      "Title": "Aufgabe",
+      "Text": "{name} ergibt sich ({reason}).",
+      "Hint": "Annehmen: der Token bleibt „Ergeben“, wird übersprungen und nicht mehr von NPC angegriffen. Kämpft weiter: Zustand entfernen, der Token gibt in diesem Kampf nicht mehr auf.",
+      "Status": "Ergeben",
+      "StatusDescription": "Hat die Waffen niedergelegt und ergibt sich.",
+      "Accept": "Annehmen",
+      "FightOn": "Kämpft weiter",
+      "Post": "Text posten",
+      "TokenGone": "Token nicht mehr auf der Szene.",
+      "Attacked": "{name} hat sich ergeben und wird trotzdem angegriffen!",
+      "Skipped": "{name} hat sich ergeben – Zug übersprungen.",
+      "State": {
+        "pending": "wartet auf Entscheidung",
+        "accepted": "angenommen",
+        "fighting": "kämpft weiter"
+      }
+    },
+    "Command": {
+      "Title": "Gruppenbefehl",
+      "none": "kein Befehl",
+      "attack": "Angriff!",
+      "retreat": "Rückzug!",
+      "defend": "Verteidigung!",
+      "Announce": "{leader} befiehlt „{command}“ – gilt für: {members}"
+    }
+  }
+}

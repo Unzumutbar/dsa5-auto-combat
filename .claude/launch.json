@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "foundry-dsa5-test",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["scripts/run-foundry.mjs"],
+      "port": 30000
+    }
+  ]
+}

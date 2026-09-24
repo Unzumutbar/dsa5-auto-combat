@@ -1,0 +1,20 @@
+<div class="dsa5-auto-combat-card dac-opportunity dac-state-{{state}}">
+  <header class="dac-header">
+    <i class="fa-solid fa-bolt dac-opportunity-icon"></i>
+    <div class="dac-title">
+      <strong>{{title}}</strong>
+      <span class="dac-meta"><em>{{stateLabel}}</em></span>
+    </div>
+  </header>
+  <div class="dac-body">
+    <p>{{text}}</p>
+    <p class="dac-explanation">{{rule}}</p>
+    {{#if detail}}<p class="dac-result-status">{{detail}}</p>{{/if}}
+  </div>
+  {{#if pending}}
+  <footer class="dac-buttons">
+    <button type="button" data-dac-opportunity="execute"><i class="fa-solid fa-bolt"></i> {{labels.execute}}</button>
+    <button type="button" data-dac-opportunity="decline"><i class="fa-solid fa-hand"></i> {{labels.decline}}</button>
+  </footer>
+  {{/if}}
+</div>

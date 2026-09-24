@@ -1,0 +1,313 @@
+/* dsa5-auto-combat */
+.dsa5-auto-combat-card {
+  border: 1px solid var(--color-border-light-primary, #7a7971);
+  border-radius: 4px;
+  padding: 0.35rem 0.5rem;
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.dsa5-auto-combat-card .dac-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.3rem;
+}
+
+.dsa5-auto-combat-card .dac-token {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.dsa5-auto-combat-card .dac-title {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.dsa5-auto-combat-card .dac-meta {
+  font-size: 0.8em;
+  opacity: 0.8;
+}
+
+.dsa5-auto-combat-card .dac-section {
+  font-weight: bold;
+  margin-top: 0.3rem;
+}
+
+.dsa5-auto-combat-card ul,
+.dsa5-auto-combat-card ol {
+  margin: 0.15rem 0;
+  padding-left: 1.25rem;
+}
+
+.dsa5-auto-combat-card .dac-explanation {
+  font-size: 0.85em;
+  opacity: 0.85;
+}
+
+.dsa5-auto-combat-card .dac-warnings {
+  color: #a5341f;
+  font-size: 0.85em;
+}
+
+.dsa5-auto-combat-card .dac-result-failed {
+  color: #a5341f;
+}
+
+.dsa5-auto-combat-card .dac-result-notImplemented,
+.dsa5-auto-combat-card .dac-result-skipped {
+  opacity: 0.7;
+}
+
+.dsa5-auto-combat-card .dac-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin-top: 0.4rem;
+}
+
+.dsa5-auto-combat-card .dac-buttons button {
+  flex: 1 1 auto;
+  font-size: 0.85em;
+  line-height: 1.6;
+}
+
+.dsa5-auto-combat-card.dac-state-stale,
+.dsa5-auto-combat-card.dac-state-skipped {
+  opacity: 0.6;
+}
+
+.dac-hud-badge {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  font-size: 9px;
+  line-height: 1;
+  padding: 1px 3px;
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+}
+
+.dac-disposition-defaults .dac-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 0.5rem;
+}
+
+.dac-disposition-defaults .dac-column {
+  min-width: 0;
+  padding: 0.25rem 0.5rem;
+}
+
+.dac-disposition-defaults .form-group {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.15rem;
+}
+
+.dac-disposition-defaults .form-group label {
+  font-size: 0.8em;
+  flex: none;
+}
+
+.dsa5-auto-combat-config .dac-config-head {
+  border-bottom: 1px solid var(--color-border-light-primary, #7a7971);
+  margin-bottom: 0.4rem;
+  padding-bottom: 0.2rem;
+}
+
+.dsa5-auto-combat-config .dac-config-head .form-group,
+.dsa5-auto-combat-config .dac-field {
+  margin: 0.15rem 0;
+}
+
+.dsa5-auto-combat-config .dac-field label {
+  cursor: help;
+  text-decoration: underline dotted;
+  text-decoration-color: rgba(0, 0, 0, 0.3);
+}
+
+.dsa5-auto-combat-config nav.tabs {
+  margin: 0.2rem 0 0.4rem;
+  border-bottom: 1px solid var(--color-border-light-primary, #7a7971);
+}
+
+.dsa5-auto-combat-config .dac-tab {
+  min-height: 12rem;
+}
+
+.dsa5-auto-combat-config .dac-config-foot {
+  border-top: 1px solid var(--color-border-light-primary, #7a7971);
+  margin-top: 0.4rem;
+  padding-top: 0.3rem;
+}
+
+.dac-archetype-layout {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 0.75rem;
+}
+
+.dac-archetype-list ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.dac-archetype-list li button {
+  width: 100%;
+  text-align: left;
+  margin-bottom: 2px;
+}
+
+.dac-archetype-list li.active button {
+  font-weight: bold;
+  box-shadow: 0 0 4px var(--color-shadow-primary, #ff6400);
+}
+
+.dac-archetype-toolbar {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 0.3rem;
+}
+
+.dac-archetype-toolbar button {
+  flex: 1;
+}
+
+.dac-badge {
+  font-size: 0.7em;
+  opacity: 0.7;
+  margin-left: 0.25rem;
+}
+
+.dac-archetype-fields {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(150px, 1fr));
+  gap: 0.5rem;
+}
+
+.dac-archetype-fields .dac-column {
+  min-width: 0;
+  padding: 0.25rem 0.5rem;
+}
+
+.dac-archetype-fields .form-group,
+.dac-disposition-map .form-group {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.1rem;
+}
+
+.dac-archetype-fields .form-group label,
+.dac-disposition-map .form-group label {
+  font-size: 0.8em;
+  flex: none;
+}
+
+.dac-disposition-map {
+  margin-top: 0.5rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.4rem;
+}
+
+.dac-disposition-map legend {
+  grid-column: 1 / -1;
+}
+
+.dsa5-auto-combat-card .dac-overlay-toggle {
+  flex: 0 0 auto;
+}
+
+.dsa5-auto-combat-card .dac-odds {
+  opacity: 0.7;
+  font-size: 0.85em;
+  white-space: nowrap;
+}
+
+.dsa5-auto-combat-card .dac-remove {
+  margin-left: 0.25rem;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.dsa5-auto-combat-card .dac-remove:hover {
+  opacity: 1;
+  color: #a5341f;
+}
+
+.dsa5-auto-combat-card .dac-adjusted {
+  color: #8a6d00;
+}
+
+.dsa5-auto-combat-card .dac-adjust {
+  margin-top: 0.3rem;
+  font-size: 0.85em;
+}
+
+.dsa5-auto-combat-card .dac-adjust summary {
+  cursor: pointer;
+  opacity: 0.85;
+}
+
+.dsa5-auto-combat-card .dac-adjust-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.2rem 0.4rem;
+  margin-top: 0.2rem;
+}
+
+.dsa5-auto-combat-card .dac-adjust-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.dsa5-auto-combat-card .dac-adjust-grid label.dac-check {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.dsa5-auto-combat-card .dac-adjust-grid select {
+  width: 100%;
+  font-size: 1em;
+  height: 1.8em;
+}
+
+.dsa5-auto-combat-card .dac-adjust-grid button {
+  font-size: 1em;
+  line-height: 1.6;
+}
+
+.dsa5.chat-card .dac-wall-button button {
+  width: 100%;
+  font-size: 0.9em;
+  line-height: 1.8;
+}
+
+.dac-wall-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.dac-wall-table th,
+.dac-wall-table td {
+  padding: 0.2rem 0.4rem;
+  text-align: left;
+}
+
+.dac-wall-table button {
+  width: 2rem;
+  line-height: 1.6;
+}
+
+.dsa5-auto-combat-card .dac-surrender-icon {
+  font-size: 1.4em;
+  color: #8a6d00;
+}

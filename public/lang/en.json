@@ -1,0 +1,575 @@
+{
+  "DSAAUTOCOMBAT": {
+    "Title": "Auto Combat",
+    "Ready": "Ready ({system} {version})",
+    "SelfTest": {
+      "Ok": "Self-test passed: all required DSA5 and Foundry functions were found.",
+      "Missing": "Self-test: the following functions are missing or have changed: {missing}. Automation may work only partially."
+    },
+    "Settings": {
+      "enabled": {
+        "Name": "Automation enabled",
+        "Hint": "Turns the whole NPC automation on or off."
+      },
+      "damageApplication": {
+        "Name": "Apply damage automatically",
+        "Hint": "Applies the damage of a won opposed test to the defender automatically.",
+        "npcOnly": "NPCs only",
+        "everyone": "Everyone (including player characters)",
+        "never": "Never"
+      },
+      "advanceTurn": {
+        "Name": "End turn after execution",
+        "Hint": "Advances to the next combatant automatically after an NPC turn has been executed.",
+        "never": "Never",
+        "autoOnly": "Fully automatic tokens only",
+        "always": "Always"
+      },
+      "autoInitiative": {
+        "Name": "Roll initiative automatically",
+        "Hint": "Rolls missing initiative for GM-controlled combatants when combat starts and when combatants are added."
+      },
+      "defaultSpellRangeSteps": {
+        "Name": "Spell range fallback (yards)",
+        "Hint": "Used when the range text of a spell cannot be parsed."
+      },
+      "deadTokensBlock": {
+        "Name": "Defeated tokens block movement",
+        "Hint": "If enabled, spaces occupied by defeated tokens count as blocked for pathfinding."
+      },
+      "debug": {
+        "Name": "Debug output",
+        "Hint": "Writes detailed planning information to the browser console."
+      },
+      "focusLimit": {
+        "Name": "Focus limit (attackers per target)",
+        "Hint": "At most this many automated NPCs attack the same target while other targets are reachable."
+      },
+      "archetypeMenu": {
+        "Name": "Archetypes",
+        "Label": "Manage archetypes",
+        "Hint": "Create and edit behaviour presets and assign them to dispositions. Token and actor settings take precedence."
+      },
+      "showPathPreview": {
+        "Name": "Path preview on the map",
+        "Hint": "Draws the planned path, the target and attack-of-opportunity risks onto the scene while a turn preview is pending."
+      },
+      "showOdds": {
+        "Name": "Show odds",
+        "Hint": "Shows the estimated hit chance and expected damage per attack and the success chance per spell in the turn preview."
+      },
+      "skipSurrendered": {
+        "Name": "Skip surrendered",
+        "Hint": "Surrendered NPCs lose their turn automatically while others still fight."
+      },
+      "surrenderText": {
+        "Name": "Surrender text",
+        "Hint": "Public chat text for “Post text”; {name} is replaced."
+      }
+    },
+    "Level": {
+      "default": "Default (by disposition)",
+      "off": "Off",
+      "preview": "Preview",
+      "auto": "Fully automatic"
+    },
+    "Profile": {
+      "aggressive": "Aggressive",
+      "balanced": "Balanced",
+      "defensive": "Defensive",
+      "support": "Supportive",
+      "passive": "Passive",
+      "default": "Default (by disposition)"
+    },
+    "TargetRule": {
+      "nearest": "Nearest target",
+      "weakest": "Weakest target",
+      "highestThreat": "Highest threat",
+      "random": "Random",
+      "default": "Default"
+    },
+    "Disposition": {
+      "hostile": "Hostile",
+      "neutral": "Neutral",
+      "friendly": "Friendly",
+      "secret": "Secret",
+      "Label": "Disposition"
+    },
+    "Spell": {
+      "Role": {
+        "damage": "Damage",
+        "heal": "Healing",
+        "buff": "Buff",
+        "debuff": "Debuff",
+        "control": "Control",
+        "auto": "Detect automatically",
+        "never": "Never use"
+      },
+      "Sheet": {
+        "Label": "Auto Combat – combat role",
+        "Hazard": "Auto Combat – zone on the ground",
+        "Wall": "Auto Combat – spell wall"
+      }
+    },
+    "Explain": {
+      "Target": {
+        "chosen": "Target: {name} ({distance} yards)",
+        "nearest": "nearest reachable target",
+        "weakest": "weakest target",
+        "threat": "highest threat",
+        "random": "chosen at random",
+        "sticky": "keeping the previous target",
+        "forced": "chosen manually",
+        "noLos": "no line of sight",
+        "downed": "target is already down",
+        "crowded": "already attacked by enough allies",
+        "protege": "threatens the protégé",
+        "leader": "the leader's target"
+      },
+      "Skip": {
+        "defeated": "Defeated – does not act.",
+        "condition": "Condition “{condition}” – does not act.",
+        "surrendered": "Has surrendered – does not act."
+      },
+      "Warn": {
+        "pain": "Pain level {level}",
+        "provokes": "Provokes an attack of opportunity from {names}"
+      },
+      "Passive": "Passive ({disposition}) – defends only.",
+      "Flee": {
+        "threshold": "Fleeing: {lep} % LP (threshold {threshold} %)",
+        "move": "Flees {distance} yards away from the nearest enemy",
+        "cannotMove": "cannot flee (immobile)",
+        "cornered": "cornered – no escape route",
+        "groupLeader": "Group morale broken: {name} has fallen",
+        "groupLosses": "Group morale broken: {down} of {total} are down"
+      },
+      "Wait": {
+        "passive": "waits",
+        "noEnemies": "no enemies in sight",
+        "noActions": "no actions left",
+        "noWeapon": "no melee weapon",
+        "notInReach": "target out of reach ({distance} yards)",
+        "approaching": "approaching the target ({distance} yards)",
+        "noPath": "no path to the target ({distance} yards)",
+        "noAmmo": "no ammunition",
+        "holdPosition": "holds position ({distance} yards to the target)",
+        "noRetreat": "stays in melee ({distance} yards to the target)",
+        "guarding": "stays with protégé {name}",
+        "removed": "action removed by the GM"
+      },
+      "Budget": "{actions} action(s) available",
+      "Move": {
+        "free": "Move {distance} yards (free action)",
+        "run": "Run {distance} yards (costs an action)",
+        "encircle": "Flanks the target – allies already stand on the other side",
+        "block": "Cuts off the target's way out"
+      },
+      "Ranged": {
+        "shoot": "Ranged attack with {weapon} ({band})",
+        "reload": "Reload {weapon} ({progress}/{loadTime})",
+        "position": "Moves into a firing position",
+        "retreat": "Steps back out of melee",
+        "noAmmo": "Out of ammunition"
+      },
+      "Spell": {
+        "damage": "Casts {spell} at {target}",
+        "heal": "Heals {target} with {spell}",
+        "buff": "Casts {spell} on {target}",
+        "debuff": "Weakens {target} with {spell}",
+        "control": "Controls {target} with {spell}",
+        "unknownRange": "Range of {spell} unknown – assuming {units} yards",
+        "prepare": "Prepares {spell} ({progress}/{needed} actions of casting time)",
+        "continue": "Finishes the prepared spell {spell}",
+        "aborted": "Aborts {spell}: {reason}",
+        "AbortReason": {
+          "lost": "spell no longer available",
+          "pain": "pain increased",
+          "target": "target no longer available",
+          "range": "target out of range"
+        }
+      },
+      "Maneuver": "Maneuver {name} level {step} ({at} AT) – higher expected damage",
+      "Constraint": {
+        "weapon": "GM override: weapon {weapon}",
+        "spell": "GM override: spell {spell}",
+        "noSpell": "GM override: no spell",
+        "noMove": "GM override: no movement",
+        "unmet": "A GM override could not be applied (weapon/spell not usable)"
+      },
+      "Switch": {
+        "action": "Switching to {weapon} costs an action",
+        "free": "Switching to {weapon} (Quickdraw, no action)"
+      },
+      "Hazard": {
+        "leave": "Leaves the hazard {zones} first ({distance} yards)",
+        "trapped": "Stands in {zones} but finds no safe way out",
+        "path": "Path crosses {zones}"
+      },
+      "Surrender": {
+        "decision": "Surrenders: {lep} % LeP (threshold {threshold} %)",
+        "escapeBlocked": "no escape route",
+        "outnumbered": "outnumbered by the enemy",
+        "leaderFallen": "leader has fallen"
+      }
+    },
+    "Action": {
+      "move": "Move {distance} yards ({reason})",
+      "meleeAttack": "Melee attack with {weapon} on {target}",
+      "rangedAttack": "Ranged attack with {weapon} on {target} ({band})",
+      "reload": "Reload {weapon}",
+      "castSpell": "{spell} ({role}, {cost} points) on {target}",
+      "continueSpell": "Prepare {spell} ({role}) on {target}",
+      "wait": "Waits: {reason}",
+      "Self": "itself",
+      "Band": {
+        "0": "short",
+        "1": "medium",
+        "2": "long"
+      },
+      "Reason": {
+        "approach": "approach",
+        "flee": "flight",
+        "keepDistance": "keeping distance",
+        "leaveHazard": "leaving hazard"
+      },
+      "meleeAttackManeuver": "Melee attack with {weapon} on {target} – {maneuver}",
+      "switchWeapon": "Draws {weapon} ({cost})",
+      "SwitchCost": {
+        "action": "1 action",
+        "free": "free, Quickdraw"
+      },
+      "surrender": "Surrenders ({reason})"
+    },
+    "Card": {
+      "Round": "Round {round}",
+      "Target": "Target",
+      "NoTarget": "no target",
+      "Actions": "Planned actions",
+      "Results": "Result",
+      "Execute": "Execute",
+      "CycleTarget": "Other target",
+      "Skip": "Skip",
+      "EndTurn": "End turn",
+      "Mode": {
+        "fight": "Fight",
+        "flee": "Flee",
+        "passive": "Passive",
+        "skip": "Skip",
+        "surrender": "Surrender"
+      },
+      "State": {
+        "pending": "awaiting confirmation",
+        "executing": "executing …",
+        "done": "executed",
+        "skipped": "skipped",
+        "stale": "turn is over",
+        "failed": "failed"
+      },
+      "ToggleOverlay": "Show/hide path",
+      "Adjust": {
+        "Title": "Adjust plan",
+        "Adjusted": "adjusted",
+        "Weapon": "Weapon",
+        "Spell": "Spell",
+        "Auto": "automatic",
+        "NoSpell": "no spell",
+        "NoMove": "no movement",
+        "Reset": "Reset",
+        "Remove": "Remove action",
+        "Stowed": "stowed"
+      }
+    },
+    "Result": {
+      "ok": "done",
+      "skipped": "skipped",
+      "failed": "failed: {error}",
+      "notImplemented": "not executable in this version yet",
+      "error": "Error",
+      "Reason": {
+        "noActor": "no actor",
+        "noWeapon": "weapon not found",
+        "noAmmo": "no ammunition",
+        "rollFailed": "roll not possible",
+        "targetGone": "target no longer present",
+        "targetDown": "target already defeated",
+        "targetNotAdjacent": "target not (or no longer) adjacent",
+        "moveBlocked": "movement blocked",
+        "noSpell": "spell not found"
+      }
+    },
+    "Warn": {
+      "stale": "This turn proposal belongs to a past turn.",
+      "busy": "An execution is already running.",
+      "noNpcTurn": "The current combatant is not an automatable NPC.",
+      "noCandidates": "No further targets available. Target a token to force it."
+    },
+    "Hud": {
+      "Open": "Auto Combat: settings (right-click: cycle level)",
+      "Badge": {
+        "off": "OFF",
+        "preview": "PRE",
+        "auto": "AUTO"
+      }
+    },
+    "Tracker": {
+      "Plan": "Plan turn (Auto Combat)"
+    },
+    "Config": {
+      "Title": "Auto Combat – {name}",
+      "Open": "Auto Combat",
+      "Level": "Automation",
+      "Profile": "Behaviour profile",
+      "TargetRule": "Target selection",
+      "UseSpells": "Use spells/liturgies",
+      "UseRanged": "Use ranged combat",
+      "KeepDistance": "Ranged fighters keep their distance",
+      "AllowRunning": "Running allowed (movement beyond MOV costs an action)",
+      "FightWhileIncapacitated": "Act despite incapacitation",
+      "DeclineHopelessDefense": "Skip hopeless defenses",
+      "DodgeOnlyVsRanged": "Only dodge against ranged attacks",
+      "FleeThreshold": "Flees below LP share (%)",
+      "FleeThresholdHint": "0 = never",
+      "AutoAdvanceTurn": "End turn after execution",
+      "AutoAdvance": {
+        "default": "As world setting",
+        "yes": "Yes",
+        "no": "No"
+      },
+      "Effective": "effective: {value} ({source})",
+      "Source": {
+        "base": "default",
+        "disposition": "disposition",
+        "actor": "actor",
+        "token": "token",
+        "archetype": "archetype"
+      },
+      "Grudges": "Personal enemies",
+      "NoGrudges": "none",
+      "ClearGrudges": "Forget enemies",
+      "SaveToActor": "Also save as default for the actor",
+      "Save": "Save",
+      "Default": "Default",
+      "Yes": "Yes",
+      "No": "No",
+      "Tabs": {
+        "combat": "Combat",
+        "magic": "Spells & Ranged",
+        "morale": "Morale & Misc"
+      },
+      "Archetype": "Archetype",
+      "ArchetypeDefault": "Disposition default ({name})",
+      "ArchetypeFromActor": "From actor ({name})",
+      "DefaultWith": "Default ({value})",
+      "WorldDefault": "world setting",
+      "AttackDowned": "Attack downed targets",
+      "HealThresholdPct": "Heal allies below LP share (%)",
+      "PreferSpells": "Spell preference",
+      "HoldPosition": "Hold position",
+      "AllowRetreat": "May leave melee",
+      "UseManeuvers": "Use combat maneuvers",
+      "IsLeader": "Group leader",
+      "ImmuneToGroupMorale": "Immune to group morale",
+      "FocusLimit": "Focus limit (attackers per target)",
+      "Protege": "Protégé",
+      "ProtegeHint": "The token stays with this protégé and attacks whoever attacks them.",
+      "ProtegeNone": "no protégé",
+      "FleeThresholdPct": "Flees below LP share (%)",
+      "HazardCaution": "Hazardous zones",
+      "SurrenderThresholdPct": "Surrender threshold (LeP %)",
+      "SurrenderThresholdHint": "0 = never surrenders. Surrenders instead of fleeing when no escape is open, the enemy outnumbers the group or the leader has fallen.",
+      "SurrenderWhenOutnumbered": "Surrenders when outnumbered (2:1)",
+      "BlockEscape": "Block escape routes",
+      "FollowLeader": "Follows the leader (group target)"
+    },
+    "Defense": {
+      "Parry": "Parry",
+      "Dodge": "Dodge",
+      "None": {
+        "cannotDefend": "No defense possible (condition)",
+        "hopeless": "Forgoes a hopeless defense",
+        "noOption": "No defense option",
+        "rollFailed": "Defense roll not possible"
+      }
+    },
+    "Archetype": {
+      "Migrated": "Migrated: {disposition}",
+      "standard": {
+        "name": "Standard",
+        "description": "Balanced behaviour without specialities."
+      },
+      "killer": {
+        "name": "Murderous Brawler",
+        "description": "Attacks downed targets, never flees, ignores the focus limit and never retreats."
+      },
+      "coward": {
+        "name": "Cowardly Thug",
+        "description": "Picks the weakest target, flees at half its life points and surrenders when escape is impossible or the enemy outnumbers it."
+      },
+      "archer": {
+        "name": "Marksman",
+        "description": "Prefers ranged combat, keeps distance and steps out of melee."
+      },
+      "beast": {
+        "name": "Beast",
+        "description": "Aggressive, no spells, runs after its target even at the cost of an action."
+      },
+      "battlemage": {
+        "name": "Battle Mage",
+        "description": "Uses damage spells before weapons and keeps distance."
+      },
+      "supportmage": {
+        "name": "Support Mage",
+        "description": "Heals allies early (from 60 % LP), buffs and controls rather than damages."
+      },
+      "controller": {
+        "name": "Control Mage",
+        "description": "Uses control and debuff spells before damage."
+      },
+      "guard": {
+        "name": "Guard",
+        "description": "Holds position and only attacks what comes into reach."
+      },
+      "bodyguard": {
+        "name": "Bodyguard",
+        "description": "Stays with its protégé and attacks whoever attacks them (set the protégé on the token)."
+      },
+      "leader": {
+        "name": "Leader",
+        "description": "When they fall, their group's morale breaks."
+      }
+    },
+    "Opportunity": {
+      "Title": "Attack of Opportunity",
+      "Text": "{target} leaves the melee reach of {attacker}. {attacker} may make an attack of opportunity with {weapon}.",
+      "Rule": "An attack of opportunity costs no action, suffers −4 on the attack and cannot be defended against.",
+      "Execute": "Attack of opportunity",
+      "Decline": "Forgo",
+      "NotOwner": "Only the attacker's owner or the GM may perform this attack of opportunity.",
+      "Result": "Attack of opportunity rolled (success level {sl}).",
+      "State": {
+        "pending": "open",
+        "done": "executed",
+        "declined": "forgone",
+        "stale": "expired"
+      }
+    },
+    "SpellPreference": {
+      "auto": "Automatic (by profile)",
+      "damageFirst": "Damage spells first",
+      "controlFirst": "Control/debuff first",
+      "weaponsFirst": "Weapons first (spells only heal/buff)"
+    },
+    "ArchetypeMenu": {
+      "Title": "Auto Combat – Archetypes",
+      "Hint": "An archetype bundles behaviour values. “Default” keeps the built-in value. Changes affect every token using the archetype; tokens and actors may override single values.",
+      "New": "New archetype",
+      "NewName": "New archetype",
+      "Copy": "copy",
+      "Duplicate": "Duplicate",
+      "Delete": "Delete",
+      "Restore": "Restore built-in archetypes",
+      "ConfirmDelete": "Really delete archetype “{name}”? Tokens using it fall back to their disposition default.",
+      "Name": "Name",
+      "Description": "Description",
+      "Icon": "Icon (Font Awesome class)",
+      "BuiltIn": "built-in",
+      "DispositionDefaults": "Default archetype per disposition",
+      "Saved": "Archetypes saved."
+    },
+    "Keys": {
+      "planTurn": "Plan turn",
+      "planTurnHint": "Creates an Auto Combat preview for the current combatant.",
+      "executePreview": "Execute preview",
+      "executePreviewHint": "Executes the pending turn preview of the current combat.",
+      "toggleEnabled": "Toggle Auto Combat",
+      "toggleEnabledHint": "Toggles the whole automation (emergency switch).",
+      "noPending": "No pending turn preview."
+    },
+    "Controls": {
+      "Toggle": "Auto Combat enabled (emergency switch)"
+    },
+    "Notify": {
+      "enabled": "Auto Combat is enabled.",
+      "disabled": "Auto Combat is disabled."
+    },
+    "Overlay": {
+      "moveFree": "{distance} {units} (free)",
+      "moveRun": "{distance} {units} (action)",
+      "provokes": "Attack of opportunity!"
+    },
+    "Odds": {
+      "attack": "≈ {hit} % hit · ≈ {damage} DP",
+      "spell": "≈ {chance} % success"
+    },
+    "HazardCaution": {
+      "ignore": "Ignore (walks through)",
+      "avoid": "Avoid (detour when possible)",
+      "never": "Never enter"
+    },
+    "Hazard": {
+      "Mark": "Hazard zone",
+      "Title": "Hazard zone: {name}",
+      "SeverityLabel": "Severity",
+      "SeverityHint": "Avoid: NPCs walk around when the budget allows. Forbidden: acts like a wall.",
+      "DamageLabel": "Damage per round (note)",
+      "Save": "Save",
+      "Marked": "{name}: {severity}",
+      "Template": "Measured template",
+      "Severity": {
+        "auto": "Automatic (knowledge base)",
+        "none": "No hazard",
+        "avoid": "Avoid",
+        "forbidden": "Forbidden"
+      }
+    },
+    "MagicWall": {
+      "Draw": "Draw spell wall",
+      "Placed": "Spell wall drawn",
+      "Busy": "A spell wall is already being drawn.",
+      "DrawHint": "{spell}: click start and end of the wall on the map (right click or Esc cancels).",
+      "Created": "Spell wall {spell} created – duration: {duration}",
+      "Maintained": "maintained / unlimited",
+      "Rounds": "{rounds} CR",
+      "Expired": "Spell wall expired: {walls}",
+      "ListTitle": "Spell walls",
+      "None": "No spell walls on this scene.",
+      "Spell": "Spell",
+      "Caster": "Caster",
+      "Left": "Remaining",
+      "Close": "Close",
+      "Kind": {
+        "auto": "Automatic (knowledge base)",
+        "none": "No wall",
+        "invisible": "Impassable, transparent",
+        "opaque": "Impassable, opaque"
+      }
+    },
+    "Surrender": {
+      "Title": "Surrender",
+      "Text": "{name} surrenders ({reason}).",
+      "Hint": "Accept: the token stays “Surrendered”, is skipped and no longer attacked by NPCs. Fights on: remove the condition; the token will not give up again this fight.",
+      "Status": "Surrendered",
+      "StatusDescription": "Has laid down arms and surrenders.",
+      "Accept": "Accept",
+      "FightOn": "Fights on",
+      "Post": "Post text",
+      "TokenGone": "Token no longer on the scene.",
+      "Attacked": "{name} has surrendered and is attacked anyway!",
+      "Skipped": "{name} has surrendered – turn skipped.",
+      "State": {
+        "pending": "awaiting decision",
+        "accepted": "accepted",
+        "fighting": "fights on"
+      }
+    },
+    "Command": {
+      "Title": "Group command",
+      "none": "no command",
+      "attack": "Attack!",
+      "retreat": "Retreat!",
+      "defend": "Defend!",
+      "Announce": "{leader} orders “{command}” – applies to: {members}"
+    }
+  }
+}
