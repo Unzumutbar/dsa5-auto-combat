@@ -3,6 +3,17 @@
 Foundry-VTT-Modul (Core v14) für das System **Das Schwarze Auge 5 (dsa5)**: automatisiert die Züge und die
 Verteidigung spielleitergesteuerter Tokens im Kampf.
 
+## Installation
+
+In Foundry unter **Add-on Modules → Install Module** diese Manifest-URL eintragen:
+
+```
+https://github.com/Unzumutbar/dsa5-auto-combat/releases/latest/download/module.json
+```
+
+Voraussetzungen: Foundry VTT v14 und das System **dsa5** ab 8.1. Für Entwicklung und lokale Tests siehe
+[Entwicklung](#entwicklung).
+
 ## Was das Modul tut
 
 Sobald ein NPC im Kampftracker am Zug ist, plant das Modul den Zug und zeigt dem Spielleiter eine

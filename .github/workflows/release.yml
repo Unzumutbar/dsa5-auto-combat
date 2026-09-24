@@ -1,0 +1,57 @@
+name: Release
+
+# Tag a version (e.g. `git tag v0.4.0 && git push --tags`) to build the module zip and publish a
+# GitHub release. Foundry installs the module from the `module.json` attached to the release.
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: npm run check
+
+      - name: Check tag against module version
+        run: |
+          VERSION=$(node -p "require('./dist/module.json').version")
+          TAG="${GITHUB_REF_NAME#v}"
+          if [ "$VERSION" != "$TAG" ]; then
+            echo "module.json version ($VERSION) does not match tag ($TAG)"; exit 1
+          fi
+
+      - name: Point manifest at this release
+        run: |
+          node -e '
+            const fs = require("fs");
+            const m = JSON.parse(fs.readFileSync("dist/module.json", "utf8"));
+            const repo = process.env.GITHUB_REPOSITORY;
+            const tag = process.env.GITHUB_REF_NAME;
+            m.url = `https://github.com/${repo}`;
+            m.manifest = `https://github.com/${repo}/releases/latest/download/module.json`;
+            m.download = `https://github.com/${repo}/releases/download/${tag}/dsa5-auto-combat.zip`;
+            fs.writeFileSync("dist/module.json", JSON.stringify(m, null, 2) + "\n");
+          '
+
+      - name: Build zip
+        run: cd dist && zip -r ../dsa5-auto-combat.zip .
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dsa5-auto-combat.zip
+            dist/module.json
+          generate_release_notes: true
